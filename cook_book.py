@@ -1,4 +1,4 @@
-import yaml
+import json
 from pprint import pprint
 
 # cook_book = {
@@ -19,8 +19,8 @@ from pprint import pprint
         # ]
       # }
 
-# with open('cookBook.yml', 'w') as book:
-	# yaml.dump(cook_book, book)
+# with open('cookBook.json', 'w') as book:
+	# json.dump(cook_book, book, ensure_ascii = False)
 			
 def get_shop_list_by_dishes(dishes, person_count):
   cook_book = read_book()
@@ -49,9 +49,9 @@ def create_shop_list():
 	print_shop_list(shop_list)
 	
 def read_book():
-	with open('cookBook.yml') as book:
-		return yaml.load(book)
-		# pprint(yaml.load(book))
+	with open('cookBook.json') as book:
+		return json.load(book)
+		# pprint(json.load(book))
 
 create_shop_list()
 # read_book()
