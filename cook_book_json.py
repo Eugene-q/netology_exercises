@@ -23,7 +23,7 @@ from pprint import pprint
 	# json.dump(cook_book, book, ensure_ascii = False)
 			
 def get_shop_list_by_dishes(dishes, person_count):
-  cook_book = read_book()
+  with open('cookBook.json') as book: cook_book = json.load(book)
   shop_list = {}
   for dish in dishes:
     for ingridient in cook_book[dish]:
@@ -47,11 +47,5 @@ def create_shop_list():
 		.lower().split(', ')
 	shop_list = get_shop_list_by_dishes(dishes, person_count)
 	print_shop_list(shop_list)
-	
-def read_book():
-	with open('cookBook.json') as book:
-		return json.load(book)
-		# pprint(json.load(book))
 
 create_shop_list()
-# read_book()

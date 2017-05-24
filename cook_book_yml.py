@@ -23,7 +23,7 @@ from pprint import pprint
 	# yaml.dump(cook_book, book)
 			
 def get_shop_list_by_dishes(dishes, person_count):
-  cook_book = read_book()
+  with open('cookBook.yml') as book: cook_book = yaml.load(book)
   shop_list = {}
   for dish in dishes:
     for ingridient in cook_book[dish]:
@@ -47,11 +47,5 @@ def create_shop_list():
 		.lower().split(', ')
 	shop_list = get_shop_list_by_dishes(dishes, person_count)
 	print_shop_list(shop_list)
-	
-def read_book():
-	with open('cookBook.yml') as book:
-		return yaml.load(book)
-		# pprint(yaml.load(book))
 
 create_shop_list()
-# read_book()
