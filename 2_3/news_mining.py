@@ -26,7 +26,8 @@ def to_rate(words):
 def get_words(news):
   all_text = ''
   for item in news['rss']['channel']['item']:
-      all_text += item['title']['__cdata'] + ' ' + item['description']['__cdata']
+      if isinstance(item['title'], str): all_text += item['title'] + ' ' + item['description']
+      else: all_text += item['title']['__cdata'] + ' ' + item['description']['__cdata']
   return list(filter(lambda x: len(x) > 6, list(map(lambda x: x.strip(',.<br>'), all_text.split()))))
     
     
