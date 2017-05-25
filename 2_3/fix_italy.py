@@ -1,5 +1,4 @@
 import json
-import chardet
 
 with open('newsit.json') as f:
   object = json.load(f)
