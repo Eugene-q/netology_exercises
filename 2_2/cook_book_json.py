@@ -2,7 +2,7 @@ import json
 from pprint import pprint
 
 # cook_book = {
-      # 'яйчница': [
+      # 'яичница': [
         # {'ingridient_name': 'яйца', 'quantity': 2, 'measure': 'шт.'},
         # {'ingridient_name': 'помидоры', 'quantity': 100, 'measure': 'гр.'}
         # ],
@@ -19,7 +19,7 @@ from pprint import pprint
         # ]
       # }
 
-# with open('cookBook.json', 'w') as book:
+# with open('cookBook.json', 'w', encoding='utf-8') as book:
 	# json.dump(cook_book, book, ensure_ascii=False, indent=2)
 			
 def get_shop_list_by_dishes(dishes, person_count):

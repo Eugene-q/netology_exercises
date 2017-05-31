@@ -1,53 +1,53 @@
 {
-  "яйчница": [
+  "СЏРёС‡РЅРёС†Р°": [
     {
-      "ingridient_name": "яйца",
+      "ingridient_name": "СЏР№С†Р°",
       "quantity": 2,
-      "measure": "шт."
+      "measure": "С€С‚."
     },
     {
-      "ingridient_name": "помидоры",
+      "ingridient_name": "РїРѕРјРёРґРѕСЂС‹",
       "quantity": 100,
-      "measure": "гр."
+      "measure": "РіСЂ."
     }
   ],
-  "стейк": [
+  "СЃС‚РµР№Рє": [
     {
-      "ingridient_name": "говядина",
+      "ingridient_name": "РіРѕРІСЏРґРёРЅР°",
       "quantity": 300,
-      "measure": "гр."
+      "measure": "РіСЂ."
     },
     {
-      "ingridient_name": "специи",
+      "ingridient_name": "СЃРїРµС†РёРё",
       "quantity": 5,
-      "measure": "гр."
+      "measure": "РіСЂ."
     },
     {
-      "ingridient_name": "масло",
+      "ingridient_name": "РјР°СЃР»Рѕ",
       "quantity": 10,
-      "measure": "мл."
+      "measure": "РјР»."
     }
   ],
-  "салат": [
+  "СЃР°Р»Р°С‚": [
     {
-      "ingridient_name": "помидоры",
+      "ingridient_name": "РїРѕРјРёРґРѕСЂС‹",
       "quantity": 100,
-      "measure": "гр."
+      "measure": "РіСЂ."
     },
     {
-      "ingridient_name": "огурцы",
+      "ingridient_name": "РѕРіСѓСЂС†С‹",
       "quantity": 100,
-      "measure": "гр."
+      "measure": "РіСЂ."
     },
     {
-      "ingridient_name": "масло",
+      "ingridient_name": "РјР°СЃР»Рѕ",
       "quantity": 100,
-      "measure": "мл."
+      "measure": "РјР»."
     },
     {
-      "ingridient_name": "лук",
+      "ingridient_name": "Р»СѓРє",
       "quantity": 1,
-      "measure": "шт."
+      "measure": "С€С‚."
     }
   ]
 }
