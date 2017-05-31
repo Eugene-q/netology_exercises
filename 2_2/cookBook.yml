@@ -1,17 +1,12 @@
-"\u0441\u0430\u043B\u0430\u0442":
-- {ingridient_name: "\u043F\u043E\u043C\u0438\u0434\u043E\u0440\u044B", measure: "\u0433\u0440\
-    .", quantity: 100}
-- {ingridient_name: "\u043E\u0433\u0443\u0440\u0446\u044B", measure: "\u0433\u0440\
-    .", quantity: 100}
-- {ingridient_name: "\u043C\u0430\u0441\u043B\u043E", measure: "\u043C\u043B.", quantity: 100}
-- {ingridient_name: "\u043B\u0443\u043A", measure: "\u0448\u0442.", quantity: 1}
-"\u0441\u0442\u0435\u0439\u043A":
-- {ingridient_name: "\u0433\u043E\u0432\u044F\u0434\u0438\u043D\u0430", measure: "\u0433\u0440\
-    .", quantity: 300}
-- {ingridient_name: "\u0441\u043F\u0435\u0446\u0438\u0438", measure: "\u0433\u0440\
-    .", quantity: 5}
-- {ingridient_name: "\u043C\u0430\u0441\u043B\u043E", measure: "\u043C\u043B.", quantity: 10}
-"\u044F\u0439\u0447\u043D\u0438\u0446\u0430":
-- {ingridient_name: "\u044F\u0439\u0446\u0430", measure: "\u0448\u0442.", quantity: 2}
-- {ingridient_name: "\u043F\u043E\u043C\u0438\u0434\u043E\u0440\u044B", measure: "\u0433\u0440\
-    .", quantity: 100}
+салат:
+- {ingridient_name: помидоры, measure: гр., quantity: 100}
+- {ingridient_name: огурцы, measure: гр., quantity: 100}
+- {ingridient_name: масло, measure: мл., quantity: 100}
+- {ingridient_name: лук, measure: шт., quantity: 1}
+стейк:
+- {ingridient_name: гов€дина, measure: гр., quantity: 300}
+- {ingridient_name: специи, measure: гр., quantity: 5}
+- {ingridient_name: масло, measure: мл., quantity: 10}
+€йчница:
+- {ingridient_name: €йца, measure: шт., quantity: 2}
+- {ingridient_name: помидоры, measure: гр., quantity: 100}

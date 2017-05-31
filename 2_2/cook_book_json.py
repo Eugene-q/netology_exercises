@@ -20,7 +20,7 @@ from pprint import pprint
       # }
 
 # with open('cookBook.json', 'w') as book:
-	# json.dump(cook_book, book, ensure_ascii = False)
+	# json.dump(cook_book, book, ensure_ascii=False, indent=2)
 			
 def get_shop_list_by_dishes(dishes, person_count):
   with open('cookBook.json') as book: cook_book = json.load(book)

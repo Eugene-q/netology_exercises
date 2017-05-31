@@ -1,26 +1,26 @@
 import yaml
 from pprint import pprint
 
-# cook_book = {
-      # 'яйчница': [
-        # {'ingridient_name': 'яйца', 'quantity': 2, 'measure': 'шт.'},
-        # {'ingridient_name': 'помидоры', 'quantity': 100, 'measure': 'гр.'}
-        # ],
-      # 'стейк': [
-        # {'ingridient_name': 'говядина', 'quantity': 300, 'measure': 'гр.'},
-        # {'ingridient_name': 'специи', 'quantity': 5, 'measure': 'гр.'},
-        # {'ingridient_name': 'масло', 'quantity': 10, 'measure': 'мл.'}
-        # ],
-      # 'салат': [
-        # {'ingridient_name': 'помидоры', 'quantity': 100, 'measure': 'гр.'},
-        # {'ingridient_name': 'огурцы', 'quantity': 100, 'measure': 'гр.'},
-        # {'ingridient_name': 'масло', 'quantity': 100, 'measure': 'мл.'},
-        # {'ingridient_name': 'лук', 'quantity': 1, 'measure': 'шт.'}
-        # ]
-      # }
+cook_book = {
+      'яйчница': [
+        {'ingridient_name': 'яйца', 'quantity': 2, 'measure': 'шт.'},
+        {'ingridient_name': 'помидоры', 'quantity': 100, 'measure': 'гр.'}
+        ],
+      'стейк': [
+        {'ingridient_name': 'говядина', 'quantity': 300, 'measure': 'гр.'},
+        {'ingridient_name': 'специи', 'quantity': 5, 'measure': 'гр.'},
+        {'ingridient_name': 'масло', 'quantity': 10, 'measure': 'мл.'}
+        ],
+      'салат': [
+        {'ingridient_name': 'помидоры', 'quantity': 100, 'measure': 'гр.'},
+        {'ingridient_name': 'огурцы', 'quantity': 100, 'measure': 'гр.'},
+        {'ingridient_name': 'масло', 'quantity': 100, 'measure': 'мл.'},
+        {'ingridient_name': 'лук', 'quantity': 1, 'measure': 'шт.'}
+        ]
+      }
 
-# with open('cookBook.yml', 'w') as book:
-	# yaml.dump(cook_book, book)
+with open('cookBook.yml', 'w') as book:
+	yaml.dump(cook_book, book, allow_unicode=True)
 			
 def get_shop_list_by_dishes(dishes, person_count):
   with open('cookBook.yml') as book: cook_book = yaml.load(book)
@@ -48,4 +48,4 @@ def create_shop_list():
 	shop_list = get_shop_list_by_dishes(dishes, person_count)
 	print_shop_list(shop_list)
 
-create_shop_list()
+# create_shop_list()
