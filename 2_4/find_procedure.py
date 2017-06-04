@@ -56,7 +56,7 @@ def find_string_in(list_of_files):
   find_string_in(new_list)
   
 def start():
-  migrations = 'Migrations'
+  migrations = 'Advanced Migrations'
   find_string_in(glob.glob(os.path.join(migrations, "*.sql")))
   
 start()
