@@ -4,8 +4,7 @@ students = list()
 
 
 def students_generator():
-    titles = ["name", "fname", "sex", "experience", "grades", "exam"]
-
+    titles = ['name', 'fname', 'sex', 'experience', 'grades', 'exam']
     persons = [
         ['Нюша', 'Хрюшина', 'female'],
         ['Бараш', 'Круторогов', 'male'],
@@ -17,7 +16,6 @@ def students_generator():
         ['Кар', 'Карыч', 'male'],
         ['Люсьен', 'Копатычев', 'male'],
     ]
-
     for person in persons:
         person.append(random.choice([False, True]))
         person.append(list())
@@ -84,8 +82,10 @@ def best(x):
     best_students = [dict(zip(titles, person)), ]
     for student in students:
         int_grade = 0.6 * avg(student['grades']) + 0.4 * student['exam']
-        if int_grade < best_students[0]['grade']: continue
-        if int_grade > best_students[0]['grade']: best_students.clear()
+        if int_grade < best_students[0]['grade']:
+            continue
+        if int_grade > best_students[0]['grade']:
+            best_students.clear()
         best_students.append(dict(zip(titles, [student['name'], student['fname'], int_grade])))
     print(const('BEST_STUDENTS'), '\n')
     for student in best_students:
@@ -101,12 +101,13 @@ def command_selector(*arg):
     commands = {
         "a": {'description': 'average - средняя оценка по группе за домашки и за экзамен',
               'function': avg_group},
-        "asx": {
-            'description': 'average_sex_exp - средние оценки у мужчин и у женщин с опытом и без опыта программирования',
-            'function': avg_sex_exp},
+        "asx": {'description': 'average_sex_exp - средние оценки у мужчин и у женщин'
+                           ' с опытом и без опыта программирования',
+                'function': avg_sex_exp},
         "b": {'description': 'best student - студент или студенты с лучшей интегральной оценкой',
               'function': best},
-        "h": {'description': 'help - список команд', 'function': hlp}
+        "h": {'description': 'help - список команд',
+              'function': hlp}
     }
     print()
     input_com = commands.get(input(const('GET_COMMAND')))
@@ -125,4 +126,4 @@ def main():
         command_selector((avg_group, avg_sex_exp, best, hlp))
 
 
-main()  
+main()
