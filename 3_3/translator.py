@@ -29,7 +29,6 @@ def translate_it(source_file, result_file, from_lang, to_lang='ru'):
         print('file not found!')
         return 1
 
-
     params = {
         'key': key,
         'lang': '{}-{}'.format(from_lang, to_lang),
@@ -37,14 +36,11 @@ def translate_it(source_file, result_file, from_lang, to_lang='ru'):
     }
     response = requests.get(url, params=params).json()
 
-    try:
-        f = open(result_file, 'w', encoding='UTF-8')
-    except:
-        os.mkdir(os.path.join(os.getcwd(), os.path.split(result_file)[0]))
-        f = open(result_file, 'w', encoding='UTF-8')
-    finally:
+    result_dir = os.path.join(os.getcwd(), os.path.split(result_file)[0])
+    if not os.path.exists(result_dir):
+        os.mkdir(result_dir)
+    with open(result_file, 'w', encoding='UTF-8') as f:
         f.write(''.join(response.get('text', [])))
-        f.close()
 
 
 def main():
