@@ -2,12 +2,9 @@ import requests
 from pprint import pprint
 import random
 
-SERVICE_KEY = 'f6e4ed81f6e4ed81f6e4ed8133f6b82985ff6e4f6e4ed81afa2bb93663a2d6752706624'
-APP_ID = '6079492'
-AUTHORIZE_URL = 'https://oauth.vk.com/authorize'
 VERSION = '5.65'
 VK_METHOD = 'https://api.vk.com/method/'
-MINE = 3026449
+USER_ID = 10000
 
 
 def friends_of(id, output='list'):
@@ -24,13 +21,23 @@ def friends_of(id, output='list'):
     return response.json()['response']['items']
 
 
-def common_friends(user, min_common=1):
-    user_friends_ids = set(friends_of(user))
-    friends_of_all_ids = user_friends_ids
+def common_friends(user):
+    user_friends_ids = friends_of(user)
+    friends_of_all_ids = set(friends_of(user_friends_ids[0]))
     for friend_id in user_friends_ids:
+        # print('friend id : ', friend_id)
+        # print(get_users(friend_id))
+        # print('all : ', friends_of_all_ids)
+        # print('friends of friend : ', friends_of(friend_id))
+        if get_users(friend_id)[0].get('deactivated'):
+            continue
         intersected = set(friends_of(friend_id)).intersection(friends_of_all_ids)
-        if len(intersected) >= min_common:
-            friends_of_all_ids = intersected
+        if not intersected:
+            break
+        # print('intercec : ', intersected)
+        friends_of_all_ids = intersected
+        # print('all : ', friends_of_all_ids)
+        # print()
     return friends_of_all_ids
 
 
@@ -44,20 +51,22 @@ def get_users(user_ids, name_case='nom'):
 
 def user_generator():
     while True:
-        user_id = random.randint(10000, 300000000)
+        user_id = random.randint(1, 300000000)
         print(user_id)
         user = get_users(user_id)[0]
+        friends_num = friends_of(user_id, 'count')
         # print(user)
-        if not (user.get('deactivated') or friends_of(user_id, 'count') == 0):
+        if not (user.get('deactivated') or friends_num == 0 or friends_num > 200):
             break
     return user_id
 
 
 def main():
-    user = get_users(user_generator(), 'gen')[0]
+    user = get_users(USER_ID, 'gen')[0]
     user_name = '{} {}'.format(user['first_name'], user['last_name'])
+
     print('Количество друзей {} - {}.'.format(user_name, friends_of(user['uid'], 'count')))
-    print('Общие друзья его и всех его друзей:')
+    print('Общие друзья всех его друзей:')
     user_common_friends_ids = common_friends(user['uid'])
     if not user_common_friends_ids:
         print('отсутствуют')
