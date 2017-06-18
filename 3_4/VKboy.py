@@ -49,18 +49,6 @@ def get_users(user_ids, name_case='nom'):
     return requests.get(''.join((VK_METHOD, 'users.get')), params).json()['response']
 
 
-def user_generator():
-    while True:
-        user_id = random.randint(1, 300000000)
-        print(user_id)
-        user = get_users(user_id)[0]
-        friends_num = friends_of(user_id, 'count')
-        # print(user)
-        if not (user.get('deactivated') or friends_num == 0 or friends_num > 200):
-            break
-    return user_id
-
-
 def main():
     user = get_users(USER_ID, 'gen')[0]
     user_name = '{} {}'.format(user['first_name'], user['last_name'])
