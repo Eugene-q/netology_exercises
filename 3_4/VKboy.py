@@ -1,8 +1,12 @@
 import requests
+import networkx as nx
+import matplotlib.pyplot as plt
+from networkx.drawing.nx_pydot import graphviz_layout
+
 
 VERSION = '5.65'
 VK_METHOD = 'https://api.vk.com/method/'
-USER_ID = 10000
+USER_ID = 10002
 
 
 def friends_of(id, output='list'):
@@ -18,17 +22,38 @@ def friends_of(id, output='list'):
     return response.json()['response']['items']
 
 
-def common_friends(user):
-    user_friends_ids = friends_of(user)
+def common_friends(user_id):
+    user_friends_ids = friends_of(user_id)
     common_friends_ids = set(friends_of(user_friends_ids[0]))
     for friend_id in user_friends_ids:
         if get_users(friend_id)[0].get('deactivated'):
             continue
-        intersected = set(friends_of(friend_id)).intersection(common_friends_ids)
+        friends_of_friend_ids = set(friends_of(friend_id))
+        intersected = friends_of_friend_ids.intersection(common_friends_ids)
         if not intersected:
             break
         common_friends_ids = intersected
     return common_friends_ids
+
+
+def build_graph(user_id):
+    G = nx.Graph()
+    user_edges = []
+    user_friends_ids = friends_of(user_id)
+    for friend_id in user_friends_ids:
+        G.add_edge(user_id, friend_id)
+        user_edges.append((user_id, friend_id))
+        nodes = set(friends_of(friend_id)).intersection(user_friends_ids)
+        G.add_edges_from(list((friend_id, x) for x in nodes))
+
+    pos = graphviz_layout(G, prog='twopi', args='')
+    plt.figure(figsize=(50, 50))
+    nx.draw(G, pos, node_size=10, alpha=0.5, node_color="green", with_labels=False)
+    nx.draw_networkx_nodes(G, pos, nodelist=[user_id], node_size=100, node_color='r')
+    nx.draw_networkx_edges(G, pos, edgelist=user_edges, edge_color='red')
+    plt.axis('equal')
+    plt.savefig('friends_graph.png')
+    # plt.show()
 
 
 def get_users(user_ids, name_case='nom'):
@@ -48,6 +73,7 @@ def main():
     common_friends_of_friends = get_users(common_friends_of_friends_ids)
     for friend in common_friends_of_friends:
         print('{} {}'.format(friend['first_name'], friend['last_name']))
+    build_graph(USER_ID)
 
 
 main()
