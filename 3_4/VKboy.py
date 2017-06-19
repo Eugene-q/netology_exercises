@@ -44,10 +44,10 @@ def build_graph(user_id):
         G.add_edge(user_id, friend_id)
         user_edges.append((user_id, friend_id))
         nodes = set(friends_of(friend_id)).intersection(user_friends_ids)
-        G.add_edges_from(list((friend_id, x) for x in nodes))
+        G.add_edges_from([(friend_id, x) for x in nodes])
 
     pos = graphviz_layout(G, prog='twopi', args='')
-    plt.figure(figsize=(50, 50))
+    plt.figure(figsize=(20, 20))
     nx.draw(G, pos, node_size=10, alpha=0.5, node_color="green", with_labels=False)
     nx.draw_networkx_nodes(G, pos, nodelist=[user_id], node_size=100, node_color='r')
     nx.draw_networkx_edges(G, pos, edgelist=user_edges, edge_color='red')
