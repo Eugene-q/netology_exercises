@@ -26,8 +26,21 @@ VK_METHOD = 'https://api.vk.com/method/'
 # print('?'.join((AUTHORIZE_URL, urlencode(auth_data))))
 
 
-TOKEN = '641d845d5e8e7ac87886f20e8bd906b4976e6ed7a9a9eca8e4f8d58694ccf4bffbea19b7608ebb4608ac1'
+TOKEN = 'e59f93e65f498f277491940f9f3e51b5a87d1d79b73373481ad2407837a1549a20fca0ea245a1647ef0a8'
 
+class ShowWork:
+    def __init__(self):
+        self.points_num = 1
+
+    def work(self):
+        for i in range(self.points_num):
+            print('.', end='')
+        print('\r')
+        self.points_num = self.points_num % 10
+        self.points_num  = self.points_num  + 1
+
+
+show = ShowWork()
 
 def friends_of(user_id, output='list'):
     params = {
@@ -35,7 +48,7 @@ def friends_of(user_id, output='list'):
         'v': VERSION,
     }
     response = requests.get(''.join((VK_METHOD, 'friends.get')), params)
-    show_working()
+    show.work()
     if response.json().get('error'):
         return []
     elif output == 'count':
@@ -54,18 +67,13 @@ def groups_of(user_id, output='list'):
     try:
         while response['error']['error_code'] == 6:
             response = requests.get(''.join((VK_METHOD, 'groups.get')), params)
-            print(response.json())
-            time.sleep(0.3)
-            print('++')
+            time.sleep(0.05)
+            show.work()
         return []
     except (KeyError, TypeError):
         if output == 'count':
             return response.json()['response']['count']
         return response.json()['response']['items']
-
-
-def show_working():
-    print('.', end='')
 
 
 def unique_groups_of(user_id):
@@ -76,7 +84,6 @@ def unique_groups_of(user_id):
             continue
         groups_of_friend_ids = set(groups_of(friend_id))
         unique_groups_of_user_ids = unique_groups_of_user_ids.difference(groups_of_friend_ids)
-        pprint.pprint(unique_groups_of_user_ids)
         if not unique_groups_of_user_ids:
             break
     return unique_groups_of_user_ids
@@ -87,7 +94,7 @@ def get_users(user_ids, name_case='nom'):
         'user_ids': user_ids,
         'name_case': name_case
     }
-    show_working()
+    show.work()
     return requests.get(''.join((VK_METHOD, 'users.get')), params).json()["response"]
 
 
@@ -100,15 +107,13 @@ def get_group(group_id):
         ],
         'v': VERSION,
     }
-    show_working()
     response = {'error': {'error_code': 6}}
     try:
         while response['error']['error_code'] == 6:
             response = requests.get(''.join((VK_METHOD, 'groups.getById')), params).json()
-            time.sleep(0.3)
-            print('+')
+            time.sleep(0.05)
+            show.work()
     except KeyError:
-        print('get_group: ', response)
         return response['response']
 
 
@@ -119,14 +124,12 @@ def main():
                                             user_name, groups_of(user['uid'], 'count')))
     print('Группы, в которых нет ни одного из его друзей:')
     unique_groups_ids = unique_groups_of(user['uid'])
-    print(unique_groups_ids)
-    with open(''.join((os.getcwd(), 'secret_groups.json')), 'w+', encoding='utf-8') as f:
+    with open(os.path.join(os.getcwd(), 'secret_groups.json'), 'w+', encoding='utf-8') as f:
         for group_id in unique_groups_ids:
             group = (get_group(group_id))
-            print(group)
             print('Id: {}  название: {}  количество участников: {}'.format(
                                                 group[0]['id'], group[0]['name'], group[0]['members_count']))
-            json.dump(group, f,ensure_ascii=False)
+            json.dump(group, f, indent=1, ensure_ascii=False)
 
 
 main()
