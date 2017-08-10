@@ -29,7 +29,7 @@ VK_METHOD = 'https://api.vk.com/method/'
 # print('?'.join((AUTHORIZE_URL, urlencode(auth_data))))
 
 
-TOKEN = '9b099950f58b0ded9ea7a701753b7172c0aa4986035aa270fa90095e0db750c5b178a3a767b4d766aeef1'
+TOKEN = '410f000f45e6aba9dc6e11fadbebe30ca9910ab2505c1dabb4311671475efe6dc5b131651ab7a78174cc8'
 
 
 class Show:
@@ -53,6 +53,12 @@ pool = requests.Session()
 
 
 def make_request(method, add_params):
+    dummy = {
+        'response': {
+            'count': [],
+            'items': [],
+        }
+    }
     params = {
         'v': VERSION,
         'access_token': TOKEN,
@@ -62,10 +68,14 @@ def make_request(method, add_params):
         show.work()
         response = pool.get(''.join((VK_METHOD, method)), params=params)
         try:
-            if response.json()['error']['error_code'] == 6:
+            error_code = response.json()['error']['error_code']
+            if error_code == 6:
                 time.sleep(0.3)
-            elif response.json()['error']['error_code'] != 6:
-                return None
+            elif error_code == 5:
+                print('SET VALID ACCESS TOKEN !')
+                exit()
+            else:
+                return dummy
         except KeyError:
             return response.json()
 
@@ -75,8 +85,6 @@ def friends_of(user_id, output='list'):
         'user_id': user_id,
     }
     response = make_request('friends.get', params)
-    if not response:
-        return []
     if output == 'count':
         return response['response']['count']
     return response['response']['items']
