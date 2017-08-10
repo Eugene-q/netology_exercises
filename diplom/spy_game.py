@@ -26,6 +26,7 @@ VK_METHOD = 'https://api.vk.com/method/'
 #     'scope' : 'friends, status, groups',
 #     'v' : VERSION,
 # }
+# request_line = '?'.join((AUTHORIZE_URL, urlencode(auth_data)))
 # print('?'.join((AUTHORIZE_URL, urlencode(auth_data))))
 
 
@@ -72,7 +73,16 @@ def make_request(method, add_params):
             if error_code == 6:
                 time.sleep(0.3)
             elif error_code == 5:
-                print('SET VALID ACCESS TOKEN !')
+                auth_data = {
+                    'client_id': APP_ID,
+                    'response_type': 'token',
+                    'redirect_uri': 'https://oauth.vk.com/blank.html',
+                    'scope': 'friends, status, groups',
+                    'v': VERSION,
+                }
+                request_line = '?'.join((AUTHORIZE_URL, urlencode(auth_data)))
+                print('GET VALID ACCESS TOKEN HERE:')
+                print(request_line)
                 exit()
             else:
                 return dummy
